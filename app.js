@@ -1,14 +1,7 @@
 (() => {
-  const clone = obj => JSON.parse(JSON.stringify(obj));
-  const defaults = clone(window.CYBERCORE_DATA);
-  const stored = localStorage.getItem('cybercore-career-data');
-  let data = stored ? JSON.parse(stored) : clone(defaults);
-  const qs = new URLSearchParams(location.search);
-  const theme = qs.get('theme') || localStorage.getItem('cybercore-theme') || 'dark';
-  document.body.dataset.theme = theme;
+  const data = window.CYBERCORE_DATA;
   const icon = name => `<svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const save = () => localStorage.setItem('cybercore-career-data', JSON.stringify(data));
 
   function sprite(){return `<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
@@ -64,17 +57,6 @@
     return `<section class="page light page2"><h1>Telephony, Systems & Delivery</h1><div class="evidence-grid"><div class="box"><h2>Selected telephony case studies</h2>${cases}</div><div class="box"><h2>Recent enterprise experience</h2>${timeline}</div><div><div class="box"><h2>Telephony integration capability</h2><ul class="cap-columns">${data.telephonyCapabilities.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><div class="stack">${data.technologies.slice(0,10).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div><div class="box" style="margin-top:4mm"><h2>AI, automation & infrastructure</h2><ul class="cap-columns">${data.aiInfra.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div></div><div class="lower-grid"><div class="box"><h2>Languages</h2><div class="lang-grid">${data.languages.map(x=>`<div class="lang"><strong>${esc(x.name)}</strong>${esc(x.level)}</div>`).join('')}</div></div><div class="box"><h2>Education</h2><ul class="edu-list">${data.education.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><a href="mailto:${esc(data.profile.email)}" class="box"><h2>Availability</h2><p style="font-size:8px;line-height:1.5">${esc(data.profile.availability)}</p><strong class="accent">${esc(data.profile.email)}</strong></a></div><div class="page2-footer"><span>Jan Kočí · Systems Architect</span><span>${link(data.profile.linkedinUrl,data.profile.linkedinLabel)}</span><span>${link(data.profile.githubUrl,data.profile.githubLabel)}</span></div></section>`
   }
 
-  function render(){ document.getElementById('document').innerHTML = page1()+page2(); save(); }
-  const fieldDefs=[['profile.name','Name'],['profile.title','Title'],['profile.subtitle','Subtitle'],['profile.email','Email'],['profile.linkedinLabel','LinkedIn label'],['profile.linkedinUrl','LinkedIn URL'],['profile.githubLabel','GitHub label'],['profile.githubUrl','GitHub URL'],['profile.city','Location'],['profile.summary','Summary'],['profile.availability','Availability / CTA'],['cybercore.repositoryStatus','Repository status']];
-  function getPath(path){return path.split('.').reduce((o,k)=>o[k],data)}
-  function setPath(path,value){const parts=path.split('.');const last=parts.pop();const obj=parts.reduce((o,k)=>o[k],data);obj[last]=value}
-  function buildEditor(){const root=document.getElementById('editorFields');root.innerHTML=fieldDefs.map(([p,l])=>`<div class="field"><label>${l}</label>${['profile.summary','profile.availability'].includes(p)?`<textarea data-path="${p}">${esc(getPath(p))}</textarea>`:`<input data-path="${p}" value="${esc(getPath(p))}">`}</div>`).join('');root.querySelectorAll('[data-path]').forEach(el=>el.addEventListener('input',e=>{setPath(e.target.dataset.path,e.target.value);render()}))}
-  document.getElementById('editBtn').onclick=()=>document.getElementById('editor').classList.toggle('open');
-  document.getElementById('themeBtn').onclick=()=>{const t=document.body.dataset.theme==='dark'?'inverted':'dark';document.body.dataset.theme=t;localStorage.setItem('cybercore-theme',t)};
-  document.getElementById('resetBtn').onclick=()=>{data=clone(defaults);localStorage.removeItem('cybercore-career-data');buildEditor();render()};
-  document.getElementById('printBtn').onclick=()=>window.print();
-  document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cybercore-career-data.json';a.click();URL.revokeObjectURL(a.href)};
-  document.getElementById('importInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;data=JSON.parse(await f.text());buildEditor();render()};
-  if(qs.get('print')==='1'){document.querySelector('.toolbar').style.display='none'}
-  buildEditor();render();
+  function render(){ document.getElementById('document').innerHTML = page1()+page2(); }
+  render();
 })();
