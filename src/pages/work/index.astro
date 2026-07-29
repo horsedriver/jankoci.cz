@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const entries = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Selected work"
+  description="Case studies in infrastructure architecture, telephony, systems recovery and evidence-driven automation."
+>
+  <header class="page-intro section-pad">
+    <p class="section-label">Selected work</p>
+    <h1>Systems are stories.<br /><span>Evidence makes them useful.</span></h1>
+    <p>
+      Four projects showing how I approach ambiguity, operational risk and controlled change.
+      Claims are labelled by evidence quality and sensitive environments are deliberately anonymized.
+    </p>
+  </header>
+  <section class="project-list page-projects section-pad" aria-label="Case studies">
+    {entries.map((entry, index) => <ProjectCard entry={entry} index={index} />)}
+  </section>
+</BaseLayout>

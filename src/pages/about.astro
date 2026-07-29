@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="Jan Kočí is a systems architect working across Linux, telephony, infrastructure, operations and AI-assisted automation."
+>
+  <header class="page-intro section-pad">
+    <p class="section-label">About</p>
+    <h1>I make complicated systems <span>legible and governable.</span></h1>
+    <p>
+      I am a Prague-based systems architect with more than eighteen years across Linux,
+      telephony, enterprise support, product development and technical leadership.
+    </p>
+  </header>
+  <section class="about-grid section-pad">
+    <div class="prose">
+      <h2>How I work</h2>
+      <p>
+        I start with operational reality: what exists, who depends on it, what can fail and
+        which claims are actually supported by evidence. Architecture follows from that map.
+      </p>
+      <p>
+        My work combines hands-on troubleshooting with system design. I am comfortable moving
+        from a broken call flow or Linux service to the governance model that prevents the same
+        class of failure from returning.
+      </p>
+      <h2>What I value</h2>
+      <p>
+        Clear ownership, reversible change, useful documentation, honest status reporting and
+        automation that remains subordinate to human intent.
+      </p>
+    </div>
+    <aside class="principle-panel">
+      <p class="section-label">Operating principles</p>
+      <ol>
+        <li>Reality before assumptions.</li>
+        <li>Evidence before confidence theatre.</li>
+        <li>Simple systems before fashionable complexity.</li>
+        <li>Human approval before meaningful mutation.</li>
+        <li>Verification before celebration.</li>
+      </ol>
+      <a class="button primary" href="/cv/">Open the full CV</a>
+    </aside>
+  </section>
+</BaseLayout>

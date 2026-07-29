@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatusPill from "../../components/StatusPill.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("work");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<BaseLayout title={data.title} description={data.summary} eyebrow={`${data.eyebrow} · ${data.status}`}>
+  <article class="case-study">
+    <header class="case-hero section-pad">
+      <div class="case-meta">
+        <span>{data.eyebrow}</span>
+        <StatusPill status={data.status} />
+      </div>
+      <h1>{data.title}</h1>
+      <p class="case-summary">{data.summary}</p>
+      <dl class="case-facts">
+        <div><dt>Period</dt><dd>{data.period}</dd></div>
+        <div><dt>Role</dt><dd>{data.role}</dd></div>
+        <div><dt>Evidence</dt><dd>{data.evidence}</dd></div>
+        <div><dt>Visibility</dt><dd>{data.visibility}</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-outcomes section-pad" aria-labelledby="outcomes-title">
+      <div>
+        <p class="section-label">Selected outcomes</p>
+        <h2 id="outcomes-title">What changed</h2>
+      </div>
+      <ol>
+        {data.outcomes.map((outcome) => <li>{outcome}</li>)}
+      </ol>
+    </section>
+
+    <div class="case-body section-pad">
+      <aside>
+        <p class="section-label">Capabilities</p>
+        <ul>{data.capabilities.map((capability) => <li>{capability}</li>)}</ul>
+        {data.externalUrl && <a class="text-link" href={data.externalUrl}>View public evidence ↗</a>}
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+
+    <nav class="case-nav section-pad" aria-label="Case study navigation">
+      <a class="text-link" href="/work/">← All work</a>
+      <a class="button secondary" href="/contact/">Discuss a related problem</a>
+    </nav>
+  </article>
+</BaseLayout>
