@@ -9,7 +9,8 @@
     "check:astro": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "check:sensitive": "node scripts/check-sensitive.mjs",
     "check:links": "node scripts/check-links.mjs",
-    "check": "npm run check:sensitive && npm run check:astro && npm run build && npm run check:links"
+    "check:localization": "node scripts/check-localization.mjs",
+    "check": "npm run check:sensitive && npm run check:astro && npm run build && npm run check:localization && npm run check:links"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

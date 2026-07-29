@@ -1,9 +1,13 @@
 ---
 interface Props {
   status: string;
+  statusCs?: string;
 }
 
-const { status } = Astro.props;
+const { status, statusCs = status } = Astro.props;
 ---
 
-<span class="status-pill"><span aria-hidden="true"></span>{status}</span>
+<span class="status-pill">
+  <span class="status-dot" aria-hidden="true"></span>
+  <span data-lang="en">{status}</span><span data-lang="cs">{statusCs}</span>
+</span>

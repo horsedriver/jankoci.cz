@@ -9,11 +9,11 @@ const links = [
 ---
 
 <header class="site-header">
-  <a class="identity" href="/" aria-label="Jan Kočí — home">
+  <a class="identity" href="/" aria-label="Jan Kočí — home" data-aria-en="Jan Kočí — home" data-aria-cs="Jan Kočí — domů">
     <span class="identity-mark" aria-hidden="true">JK</span>
     <span>Jan Kočí</span>
   </a>
-  <nav aria-label="Primary navigation">
+  <nav aria-label="Primary navigation" data-aria-en="Primary navigation" data-aria-cs="Hlavní navigace">
     {
       links.map(({ href, label, cs }) => (
         <a href={href} aria-current={currentPath.startsWith(href) ? "page" : undefined}>

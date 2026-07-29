@@ -28,9 +28,13 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
-[data-lang="cs"] { display: none; }
-html[data-language="cs"] [data-lang="en"] { display: none; }
-html[data-language="cs"] [data-lang="cs"] { display: inline; }
+[data-lang="cs"] { display: none !important; }
+html[data-language="cs"] [data-lang="en"] { display: none !important; }
+html[data-language="cs"] [data-lang="cs"] { display: inline !important; }
+.localized-block[data-lang="en"] { display: block !important; }
+.localized-block[data-lang="cs"] { display: none !important; }
+html[data-language="cs"] .localized-block[data-lang="en"] { display: none !important; }
+html[data-language="cs"] .localized-block[data-lang="cs"] { display: block !important; }
 img { max-width: 100%; }
 ::selection { background: var(--green); color: #001000; }
 :focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
@@ -90,7 +94,7 @@ img { max-width: 100%; }
   letter-spacing: .12em;
   text-transform: uppercase;
 }
-.page-signal span::before { content: "●"; color: var(--green); margin-bottom: .7rem; }
+.page-signal > span::before { content: "●"; color: var(--green); margin-bottom: .7rem; }
 
 .kicker, .section-label {
   margin: 0 0 1.2rem;
@@ -184,7 +188,7 @@ img { max-width: 100%; }
 .project-card-body { padding: 2.2rem 0 2.6rem; }
 .project-meta, .case-meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--muted); font: .7rem/1.4 ui-monospace, "SFMono-Regular", Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; }
 .status-pill { display: inline-flex; align-items: center; gap: .5rem; color: #c5cec8; white-space: nowrap; }
-.status-pill span { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(0,218,0,.65); }
+.status-pill .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(0,218,0,.65); }
 .project-card h3 { margin: 1rem 0 .8rem; font-size: clamp(1.7rem, 4vw, 3.3rem); line-height: 1.06; letter-spacing: -.04em; }
 .project-card h3 a:hover { color: var(--green); }
 .project-card p { max-width: 780px; color: var(--muted); font-size: 1.02rem; }
