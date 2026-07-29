@@ -12,18 +12,18 @@ const featured = (await getCollection("work", ({ data }) => data.featured))
   description="Systems architect turning fragmented infrastructure into systems that can be understood, controlled and safely improved."
 >
   <section class="hero section-pad">
-    <p class="kicker">Systems architect for infrastructure that has to survive reality.</p>
+    <p class="kicker"><span data-lang="en">Systems architect for infrastructure that has to survive reality.</span><span data-lang="cs">Systémový architekt pro infrastrukturu, která musí přežít realitu.</span></p>
     <h1>
-      I turn fragmented systems into
-      <span>infrastructure you can trust.</span>
+      <span data-lang="en">I turn fragmented systems into <em>infrastructure you can trust.</em></span>
+      <span data-lang="cs">Měním roztříštěné systémy v <em>infrastrukturu, které můžete věřit.</em></span>
     </h1>
     <p class="hero-copy">
-      Linux, telephony, enterprise operations and AI-assisted automation — joined by
-      evidence, explicit decisions and controlled change.
+      <span data-lang="en">Linux, telephony, enterprise operations and AI-assisted automation — joined by evidence, explicit decisions and controlled change.</span>
+      <span data-lang="cs">Linux, telefonie, podnikový provoz a automatizace s AI — propojené důkazy, jasnými rozhodnutími a řízenou změnou.</span>
     </p>
     <div class="hero-actions">
-      <a class="button primary" href="/work/">View selected work</a>
-      <a class="button secondary" href="/contact/">Discuss a problem</a>
+      <a class="button primary" href="/work/"><span data-lang="en">View selected work</span><span data-lang="cs">Prohlédnout projekty</span></a>
+      <a class="button secondary" href="/contact/"><span data-lang="en">Discuss a problem</span><span data-lang="cs">Probrat problém</span></a>
     </div>
     <div class="hero-grid" aria-label="Professional summary">
       <div><strong>18+</strong><span>years in systems engineering</span></div>
@@ -31,6 +31,21 @@ const featured = (await getCollection("work", ({ data }) => data.featured))
       <div><strong>45</strong><span>call-centre users supported</span></div>
       <div><strong>01</strong><span>public architecture built from evidence</span></div>
     </div>
+  </section>
+
+  <section class="recruiter-layer section-pad" aria-labelledby="recruiter-title">
+    <div>
+      <p class="section-label"><span data-lang="en">For recruiters</span><span data-lang="cs">Pro HR</span></p>
+      <h2 id="recruiter-title"><span data-lang="en">The human-readable version.</span><span data-lang="cs">Lidsky a bez lovení informací.</span></h2>
+      <p class="recruiter-intro"><span data-lang="en">I am looking for senior infrastructure, systems architecture, DevOps or AI integration work where ownership and practical judgement matter.</span><span data-lang="cs">Hledám seniorní roli v infrastruktuře, systémové architektuře, DevOps nebo AI integracích, kde záleží na odpovědnosti a praktickém úsudku.</span></p>
+    </div>
+    <dl class="recruiter-facts">
+      <div><dt><span data-lang="en">Base</span><span data-lang="cs">Lokalita</span></dt><dd>Prague · remote / hybrid</dd></div>
+      <div><dt><span data-lang="en">Availability</span><span data-lang="cs">Nástup</span></dt><dd><span data-lang="en">By agreement</span><span data-lang="cs">Dohodou</span></dd></div>
+      <div><dt><span data-lang="en">Best fit</span><span data-lang="cs">Nejlepší fit</span></dt><dd>Linux · architecture · automation · AI integration</dd></div>
+      <div><dt><span data-lang="en">Work style</span><span data-lang="cs">Styl práce</span></dt><dd><span data-lang="en">Evidence, ownership, calm operations</span><span data-lang="cs">Důkazy, odpovědnost, klidný provoz</span></dd></div>
+      <div class="recruiter-actions"><dt>CV</dt><dd><button class="text-link" type="button" data-cv-open><span data-lang="en">Preview CV →</span><span data-lang="cs">Náhled CV →</span></button></dd></div>
+    </dl>
   </section>
 
   <section class="positioning section-pad" aria-labelledby="positioning-title">
