@@ -1,11 +1,10 @@
 ---
 const currentPath = Astro.url.pathname;
 const links = [
-  { href: "/work/", label: "Work" },
-  { href: "/about/", label: "About" },
-  { href: "/lab/", label: "Lab" },
-  { href: "/cv/", label: "CV" },
-  { href: "/contact/", label: "Contact" }
+  { href: "/work/", label: "Work", cs: "Projekty" },
+  { href: "/about/", label: "About", cs: "O mně" },
+  { href: "/lab/", label: "Lab", cs: "Laboratoř" },
+  { href: "/contact/", label: "Contact", cs: "Kontakt" }
 ];
 ---
 
@@ -16,11 +15,17 @@ const links = [
   </a>
   <nav aria-label="Primary navigation">
     {
-      links.map(({ href, label }) => (
+      links.map(({ href, label, cs }) => (
         <a href={href} aria-current={currentPath.startsWith(href) ? "page" : undefined}>
-          {label}
+          <span data-lang="en">{label}</span><span data-lang="cs">{cs}</span>
         </a>
       ))
     }
+    <button class="nav-button" type="button" data-cv-open>CV</button>
+    <div class="language-switch" role="group" aria-label="Language / Jazyk">
+      <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+      <span aria-hidden="true">/</span>
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+    </div>
   </nav>
 </header>
