@@ -27,6 +27,10 @@ body {
   line-height: 1.55;
 }
 a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+[data-lang="cs"] { display: none; }
+html[data-language="cs"] [data-lang="en"] { display: none; }
+html[data-language="cs"] [data-lang="cs"] { display: inline; }
 img { max-width: 100%; }
 ::selection { background: var(--green); color: #001000; }
 :focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
@@ -72,6 +76,9 @@ img { max-width: 100%; }
 .site-header nav { display: flex; align-items: center; gap: clamp(.9rem, 2.4vw, 2rem); }
 .site-header nav a { color: var(--muted); font-size: .88rem; }
 .site-header nav a:hover, .site-header nav a[aria-current="page"] { color: var(--green); }
+.nav-button, .language-switch button, .recruiter-actions button { border: 0; padding: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.nav-button:hover, .language-switch button:hover, .language-switch button[aria-pressed="true"] { color: var(--green); }
+.language-switch { display: inline-flex; gap: .35rem; color: #566059; font: .72rem/1 ui-monospace, "SFMono-Regular", Consolas, monospace; }
 
 .page-signal {
   position: fixed;
@@ -101,8 +108,8 @@ img { max-width: 100%; }
   letter-spacing: -.065em;
   font-weight: 600;
 }
-.hero h1 span, .page-intro h1 span, .contact-page h1 span { color: var(--green); }
-.hero h1 span { display: block; }
+.hero h1 em, .page-intro h1 span, .contact-page h1 span { color: var(--green); font-style: normal; }
+.hero h1 > span { display: block; }
 .hero-copy {
   max-width: 720px;
   margin: 2.4rem 0 0;
@@ -135,6 +142,26 @@ img { max-width: 100%; }
 .hero-grid span { display: block; margin-top: .6rem; color: var(--muted); font-size: .75rem; }
 
 .positioning { display: grid; grid-template-columns: .85fr 1.4fr; gap: clamp(3rem, 9vw, 8rem); border-top: 1px solid var(--line); }
+.recruiter-layer { display: grid; grid-template-columns: .85fr 1.4fr; gap: clamp(3rem, 9vw, 8rem); border-top: 1px solid var(--line); background: var(--paper); color: #121713; }
+.recruiter-layer .section-label { color: #087f08; }
+.recruiter-layer h2 { margin: 0; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.06; letter-spacing: -.045em; }
+.recruiter-intro { color: #505b53; }
+.recruiter-facts { margin: 0; border-top: 1px solid #cfd5cf; }
+.recruiter-facts div { display: grid; grid-template-columns: minmax(110px, .55fr) 1.45fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #cfd5cf; }
+.recruiter-facts dt { color: #667168; font: .68rem/1.5 ui-monospace, "SFMono-Regular", Consolas, monospace; text-transform: uppercase; }
+.recruiter-facts dd { margin: 0; }
+.recruiter-actions .text-link { color: #087f08; }
+.cv-dialog { width: min(1180px, calc(100vw - 2rem)); height: min(92vh, 900px); padding: 0; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.cv-dialog::backdrop { background: rgba(0, 0, 0, .82); backdrop-filter: blur(8px); }
+.cv-dialog[open] { display: grid; grid-template-rows: auto 1fr auto; }
+.cv-dialog-bar, .cv-dialog-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+.cv-dialog-bar .section-label { margin-bottom: .35rem; }
+.cv-dialog-bar h2 { margin: 0; font-size: 1rem; }
+.cv-close { width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.8rem; cursor: pointer; }
+.cv-close:hover { border-color: var(--green); color: var(--green); }
+.cv-dialog iframe { width: 100%; height: 100%; border: 0; background: white; }
+.cv-dialog-actions { justify-content: flex-end; border-top: 1px solid var(--line); border-bottom: 0; }
+.dialog-open { overflow: hidden; }
 .positioning h2, .section-heading h2, .cybercore-feature h2, .current-focus h2, .contact-band h2,
 .case-outcomes h2, .about-grid h2 {
   margin: 0;
@@ -233,7 +260,7 @@ img { max-width: 100%; }
   .hero-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-grid div:nth-child(2) { border-right: 0; }
   .hero-grid div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .positioning, .cybercore-feature, .current-focus, .case-outcomes, .case-body, .about-grid { grid-template-columns: 1fr; }
+  .positioning, .recruiter-layer, .cybercore-feature, .current-focus, .case-outcomes, .case-body, .about-grid { grid-template-columns: 1fr; }
   .outcome-list { grid-template-columns: 1fr; }
   .case-facts { grid-template-columns: repeat(2, 1fr); }
   .case-body aside { position: static; }
@@ -245,6 +272,9 @@ img { max-width: 100%; }
 @media (max-width: 560px) {
   .site-header { flex-direction: column; }
   .site-header nav { justify-content: flex-start; }
+  .cv-dialog { width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; }
+  .cv-dialog-actions { justify-content: stretch; }
+  .cv-dialog-actions .button { flex: 1; }
   .hero h1 { font-size: 3rem; }
   .hero-grid { margin-top: 3rem; }
   .project-card { grid-template-columns: 1fr; }
