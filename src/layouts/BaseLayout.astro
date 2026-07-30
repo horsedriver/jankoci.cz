@@ -10,6 +10,7 @@ interface Props {
   descriptionCs?: string;
   eyebrow?: string;
   eyebrowCs?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -18,10 +19,12 @@ const {
   titleCs = title,
   descriptionCs = description,
   eyebrow = "Systems Architect · Infrastructure · Telephony · AI Integration",
-  eyebrowCs = "Systémový architekt · Infrastruktura · Telefonie · Integrace AI"
+  eyebrowCs = "Systémový architekt · Infrastruktura · Telefonie · Integrace AI",
+  noindex = false
 } = Astro.props;
 
-const englishPath = Astro.url.pathname;
+const requestedPath = Astro.url.pathname;
+const englishPath = noindex ? "/" : requestedPath;
 const czechPath = `/cs${englishPath === "/" ? "/" : englishPath}`;
 const canonical = new URL(englishPath, Astro.site);
 const alternateCs = new URL(czechPath, Astro.site);
@@ -55,7 +58,7 @@ const personSchema = {
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} data-content-en={description} data-content-cs={descriptionCs} />
     <meta name="theme-color" content="#090c0b" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Jan Kočí" />
     <meta property="og:title" content={fullTitle} data-content-en={fullTitle} data-content-cs={fullTitleCs} />
