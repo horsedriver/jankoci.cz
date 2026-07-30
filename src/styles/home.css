@@ -1,11 +1,13 @@
 .personal-hero {
-  min-height: calc(100vh - 82px);
+  min-height: calc(100svh - 82px);
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
-  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.28fr) minmax(280px, .72fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding-top: clamp(4rem, 6.5vw, 6rem);
+  padding-bottom: clamp(4rem, 6.5vw, 6rem);
   border-bottom: 1px solid var(--line);
   background:
     radial-gradient(circle at 78% 40%, rgba(0,218,0,.10), transparent 24%),
@@ -26,21 +28,22 @@
 .personal-hero-copy { position: relative; z-index: 1; }
 .personal-hero h1 {
   margin: 0;
-  max-width: 920px;
-  font-size: clamp(3.4rem, 7.2vw, 7rem);
-  line-height: .92;
-  letter-spacing: -.068em;
+  max-width: 820px;
+  font-size: clamp(3.15rem, 6vw, 5.85rem);
+  line-height: .94;
+  letter-spacing: -.064em;
   font-weight: 650;
 }
 .personal-hero h1 > span { display: block; }
 .green-stop { color: var(--green); }
 .personal-hero-intro {
-  max-width: 760px;
-  margin: 2rem 0 0;
+  max-width: 720px;
+  margin: 1.55rem 0 0;
   color: #c0c8c2;
-  font-size: clamp(1.05rem, 1.8vw, 1.32rem);
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+  line-height: 1.58;
 }
+.personal-hero .hero-actions { margin-top: 1.8rem; }
 .hero-contact { margin-left: .25rem; }
 
 .hero-proof {
@@ -50,11 +53,11 @@
   z-index: 1;
 }
 .hero-proof div {
-  padding: 1.25rem 0;
+  padding: 1.05rem 0;
   border-bottom: 1px solid var(--line);
 }
 .hero-proof dt {
-  margin-bottom: .55rem;
+  margin-bottom: .45rem;
   color: var(--green);
   font: .69rem/1.4 ui-monospace, "SFMono-Regular", Consolas, monospace;
   letter-spacing: .11em;
@@ -63,7 +66,7 @@
 .hero-proof dd {
   margin: 0;
   color: #d7ddd8;
-  font-size: .98rem;
+  font-size: .96rem;
 }
 
 .recruiter-layer,
@@ -82,13 +85,14 @@
 }
 .cybercore-copy h2 {
   margin: 0;
-  font-size: clamp(2.4rem, 4.4vw, 4.7rem);
-  line-height: 1.01;
-  letter-spacing: -.05em;
+  max-width: 660px;
+  font-size: clamp(2.3rem, 4vw, 4.15rem);
+  line-height: 1.02;
+  letter-spacing: -.048em;
 }
 .cybercore-copy > p:not(.section-label) {
   max-width: 650px;
-  margin: 1.6rem 0 0;
+  margin: 1.45rem 0 0;
   color: #aeb8b1;
   font-size: 1.04rem;
 }
@@ -133,9 +137,10 @@
   .personal-hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-top: 6rem;
-    padding-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 4.5rem;
   }
+  .personal-hero h1 { max-width: 900px; }
   .hero-proof {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -146,8 +151,9 @@
 }
 
 @media (max-width: 700px) {
-  .personal-hero { padding-top: 4rem; }
-  .personal-hero h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .personal-hero { padding-top: 3.5rem; }
+  .personal-hero h1 { font-size: clamp(2.75rem, 12vw, 4.25rem); }
+  .personal-hero-intro { margin-top: 1.35rem; }
   .hero-proof { grid-template-columns: 1fr; }
   .hero-proof div { border-right: 0; }
   .cyber-flow { grid-template-columns: 1fr; }
