@@ -31,6 +31,12 @@ for (const route of ["/", "/work/", "/about/", "/lab/", "/contact/", "/cv/"]) {
   if (!sitemap.includes(`<loc>https://jankoci.cz${route}</loc>`)) failures.push(`sitemap.xml is missing ${route}`);
 }
 
+for (const match of sitemap.matchAll(/<loc>https:\/\/jankoci\.cz([^<]+)<\/loc>/g)) {
+  const route = match[1];
+  const target = route === "/" ? "index.html" : route.endsWith("/") ? join(route.slice(1), "index.html") : route.slice(1);
+  await requireFile(target);
+}
+
 for (const file of await htmlFiles(dist)) {
   if (file.includes(`${join(dist, "cv")}/`)) continue;
   const html = await readFile(file, "utf8");
