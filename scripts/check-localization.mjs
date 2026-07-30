@@ -13,6 +13,10 @@ function requireText(html, text, page) {
   if (!html.includes(text)) failures.push(`${page}: missing ${text}`);
 }
 
+function rejectText(html, text, page) {
+  if (html.includes(text)) failures.push(`${page}: contains legacy marker ${text}`);
+}
+
 function parseFrontmatter(source, file) {
   const match = source.match(/^---\n([\s\S]*?)\n---/);
   if (!match) {
@@ -49,24 +53,30 @@ function parseFrontmatter(source, file) {
 
 const pagePaths = ["", "work", "about", "lab", "contact"];
 for (const page of pagePaths) {
-  const html = await readBuiltPage(page);
-  requireText(html, 'data-lang="en"', page || "/");
-  requireText(html, 'data-lang="cs"', page || "/");
-  requireText(html, "data-title-cs=", page || "/");
-  requireText(html, "data-content-cs=", page || "/");
+  const route = page ? `/${page}/` : "/";
+  const en = await readBuiltPage(page);
+  const cs = await readBuiltPage(join("cs", page));
+
+  requireText(en, '<html lang="en" data-language="en"', route);
+  requireText(cs, '<html lang="cs" data-language="cs"', `/cs${route}`);
+  requireText(en, `rel="canonical" href="https://jankoci.cz${route}"`, route);
+  requireText(cs, `rel="canonical" href="https://jankoci.cz/cs${route}"`, `/cs${route}`);
+  requireText(en, `hreflang="cs" href="https://jankoci.cz/cs${route}"`, route);
+  requireText(cs, `hreflang="en" href="https://jankoci.cz${route}"`, `/cs${route}`);
+  requireText(en, `data-language-link="cs"`, route);
+  requireText(cs, `data-language-link="en"`, `/cs${route}`);
+  rejectText(en, 'navigator.language.toLowerCase()', route);
+  rejectText(en, 'localStorage.getItem("jk-language")', route);
 }
 
-const home = await readBuiltPage("");
-requireText(home, 'preference.get("jk-language")', "/");
-requireText(home, 'navigator.language.toLowerCase().startsWith("cs")', "/");
-requireText(home, 'data-set-lang="cs"', "/");
-requireText(home, 'data-set-lang="en"', "/");
-requireText(home, 'data-content-cs="cs_CZ"', "/");
-requireText(home, 'href="/cv/" data-cv-open', "/");
+const homeEn = await readBuiltPage("");
+const homeCs = await readBuiltPage("cs");
+requireText(homeEn, "I turn fragmented systems", "/");
+requireText(homeCs, "Měním roztříštěné systémy", "/cs/");
+requireText(homeEn, 'href="/cv/" data-cv-open', "/");
 
-const contact = await readBuiltPage("contact");
-requireText(contact, "data-href-cs=", "/contact/");
-requireText(contact, "Syst%C3%A9mov%C3%A1%20architektura", "/contact/");
+const contactCs = await readBuiltPage(join("cs", "contact"));
+requireText(contactCs, "Syst%C3%A9mov%C3%A1%20architektura", "/cs/contact/");
 
 const englishEntries = (await readdir(join(sourceRoot, "work")))
   .filter((file) => file.endsWith(".md"))
@@ -82,10 +92,12 @@ if (JSON.stringify(englishEntries) !== JSON.stringify(czechEntries)) {
 }
 
 for (const id of englishEntries) {
-  const page = `/work/${id}/`;
-  const html = await readBuiltPage(join("work", id));
-  requireText(html, 'class="localized-block" data-lang="en"', page);
-  requireText(html, 'class="localized-block" data-lang="cs"', page);
+  const route = `/work/${id}/`;
+  const enHtml = await readBuiltPage(join("work", id));
+  const csHtml = await readBuiltPage(join("cs", "work", id));
+  requireText(enHtml, 'class="localized-block" data-lang="en"', route);
+  requireText(csHtml, 'class="localized-block" data-lang="cs"', `/cs${route}`);
+  requireText(csHtml, `rel="canonical" href="https://jankoci.cz/cs${route}"`, `/cs${route}`);
 
   const englishPath = join(sourceRoot, "work", `${id}.md`);
   const czechPath = join(sourceRoot, "work-cs", `${id}.md`);
@@ -117,4 +129,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Localization check passed for ${pagePaths.length} pages and ${englishEntries.length} case studies.`);
+console.log(`Static localization check passed for ${pagePaths.length} page pairs and ${englishEntries.length} case-study pairs.`);
