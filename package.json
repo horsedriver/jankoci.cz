@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/prepare-cv.mjs && ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "build": "node scripts/prepare-cv.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "build": "node scripts/prepare-cv.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/generate-static-cs.mjs",
     "check:astro": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "check:sensitive": "node scripts/check-sensitive.mjs",
     "check:links": "node scripts/check-links.mjs",

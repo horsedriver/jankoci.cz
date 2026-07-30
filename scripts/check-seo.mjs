@@ -27,7 +27,7 @@ const robots = await readFile(join(dist, "robots.txt"), "utf8");
 if (!robots.includes("Sitemap: https://jankoci.cz/sitemap.xml")) failures.push("robots.txt does not advertise the canonical sitemap");
 
 const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
-for (const route of ["/", "/work/", "/about/", "/lab/", "/contact/", "/cv/"]) {
+for (const route of ["/", "/work/", "/about/", "/lab/", "/contact/", "/cv/", "/cs/", "/cs/work/", "/cs/about/", "/cs/lab/", "/cs/contact/"]) {
   if (!sitemap.includes(`<loc>https://jankoci.cz${route}</loc>`)) failures.push(`sitemap.xml is missing ${route}`);
 }
 
@@ -41,16 +41,21 @@ for (const file of await htmlFiles(dist)) {
   if (file.includes(`${join(dist, "cv")}/`)) continue;
   const html = await readFile(file, "utf8");
   const label = file.replace(dist, "dist");
+  const is404 = file === join(dist, "404.html");
   for (const marker of [
     'rel="canonical"',
     'property="og:image"',
     'name="twitter:card" content="summary_large_image"',
-    'name="robots" content="index,follow,max-image-preview:large"',
+    is404 ? 'name="robots" content="noindex,follow"' : 'name="robots" content="index,follow,max-image-preview:large"',
     'type="application/ld+json"'
   ]) {
     if (!html.includes(marker)) failures.push(`${label}: missing ${marker}`);
   }
 }
+
+const notFound = await readFile(join(dist, "404.html"), "utf8");
+if (!notFound.includes('rel="canonical" href="https://jankoci.cz/"')) failures.push("404.html must canonicalize to the home page");
+if (sitemap.includes("/404")) failures.push("sitemap.xml must not contain the 404 route");
 
 if (failures.length) {
   console.error("SEO check failed:\n" + failures.join("\n"));
