@@ -1,44 +1,40 @@
-import { cp, mkdir, readdir, stat, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { access, cp, mkdir, readFile, rm } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 
 const root = resolve(".");
 const target = join(root, "public", "cv");
 const sourceFiles = ["index.html", "styles.css", "data.js", "app.js"];
+const assetDirectories = ["assets"];
 
+await rm(target, { recursive: true, force: true });
 await mkdir(target, { recursive: true });
 
-let complete = true;
 for (const file of sourceFiles) {
-  try {
-    await cp(join(root, file), join(target, file));
-  } catch {
-    complete = false;
+  const source = join(root, file);
+  await access(source);
+  await cp(source, join(target, file));
+}
+
+for (const directory of assetDirectories) {
+  const source = join(root, directory);
+  await access(source);
+  await cp(source, join(target, directory), { recursive: true });
+}
+
+const referencedFiles = new Set();
+for (const file of ["index.html", "data.js", "app.js"]) {
+  const source = await readFile(join(root, file), "utf8");
+  for (const match of source.matchAll(/["'`]([^"'`]+\.pdf(?:#[^"'`]*)?)["'`]/gi)) {
+    referencedFiles.add(match[1].split("#")[0]);
   }
 }
 
-for (const directory of ["assets"]) {
-  try {
-    await cp(join(root, directory), join(target, directory), { recursive: true });
-  } catch {
-    complete = false;
-  }
+for (const relativePath of referencedFiles) {
+  const source = join(root, relativePath);
+  const destination = join(target, relativePath);
+  await access(source);
+  await mkdir(dirname(destination), { recursive: true });
+  await cp(source, destination);
 }
 
-try {
-  const entries = await readdir(root);
-  for (const entry of entries.filter((name) => name.toLowerCase().endsWith(".pdf"))) {
-    if ((await stat(join(root, entry))).isFile()) {
-      await cp(join(root, entry), join(target, entry));
-    }
-  }
-} catch {
-  complete = false;
-}
-
-if (!complete) {
-  await writeFile(
-    join(target, "index.html"),
-    `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Jan Kočí — CV</title><style>body{margin:0;background:#090c0b;color:#e9ece8;font:18px/1.6 system-ui;display:grid;min-height:100vh;place-items:center}main{max-width:42rem;padding:2rem}a{color:#00da00}</style><main><h1>Career kit</h1><p>The production build copies the existing presentation-only career kit here. This local fallback appears only when the legacy source assets are unavailable.</p><p><a href="/">Return to portfolio</a></p></main></html>`
-  );
-  console.warn("CV source assets were not present; generated a local validation fallback.");
-}
+console.log(`Prepared CV with ${sourceFiles.length} source files, ${assetDirectories.length} asset directory and ${referencedFiles.size} referenced PDF file(s).`);

@@ -10,7 +10,8 @@
     "check:sensitive": "node scripts/check-sensitive.mjs",
     "check:links": "node scripts/check-links.mjs",
     "check:localization": "node scripts/check-localization.mjs",
-    "check": "npm run check:sensitive && npm run check:astro && npm run build && npm run check:localization && npm run check:links"
+    "check:seo": "node scripts/check-seo.mjs",
+    "check": "npm run check:sensitive && npm run check:astro && npm run build && npm run check:localization && npm run check:seo && npm run check:links"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

@@ -22,6 +22,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL("/og-card.svg", Astro.site);
 const fullTitle = title === "Jan Kočí" ? title : `${title} — Jan Kočí`;
 const fullTitleCs = titleCs === "Jan Kočí" ? titleCs : `${titleCs} — Jan Kočí`;
 const personSchema = {
@@ -33,8 +34,13 @@ const personSchema = {
   email: "mailto:jan@jankoci.cz",
   sameAs: [
     "https://www.linkedin.com/in/jankoci",
-    "https://github.com/cyberDJs/CyberCore"
+    "https://github.com/horsedriver"
   ],
+  subjectOf: {
+    "@type": "SoftwareSourceCode",
+    name: "CyberCore",
+    codeRepository: "https://github.com/cyberDJs/CyberCore"
+  },
   knowsAbout: ["Linux", "Infrastructure architecture", "VoIP", "Automation", "AI integration"]
 };
 ---
@@ -46,11 +52,21 @@ const personSchema = {
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} data-content-en={description} data-content-cs={descriptionCs} />
     <meta name="theme-color" content="#090c0b" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jan Kočí" />
     <meta property="og:title" content={fullTitle} data-content-en={fullTitle} data-content-cs={fullTitleCs} />
     <meta property="og:description" content={description} data-content-en={description} data-content-cs={descriptionCs} />
     <meta property="og:locale" content="en_US" data-content-en="en_US" data-content-cs="cs_CZ" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jan Kočí — Systems Architect" data-content-en="Jan Kočí — Systems Architect" data-content-cs="Jan Kočí — systémový architekt" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} data-content-en={fullTitle} data-content-cs={fullTitleCs} />
+    <meta name="twitter:description" content={description} data-content-en={description} data-content-cs={descriptionCs} />
+    <meta name="twitter:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={canonical} />
     <link rel="alternate" hreflang="cs" href={canonical} />
