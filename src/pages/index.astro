@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import "../styles/home.css";
 
 const featured = (await getCollection("work", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order);
@@ -11,42 +12,70 @@ const featuredProjects = featured.map((entry) => {
   if (!entryCs) throw new Error(`Missing Czech case study: ${entry.id}`);
   return { entry, entryCs };
 });
+
+const stages = [
+  { key: "reality", title: "Reality", titleCs: "Realita", text: "The world as it is. Raw signals and observations.", textCs: "Svět takový, jaký je. Surové signály a pozorování." },
+  { key: "evidence", title: "Evidence", titleCs: "Důkazy", text: "Structured facts with provenance and context.", textCs: "Strukturovaná fakta s původem a kontextem." },
+  { key: "decision", title: "Decision", titleCs: "Rozhodnutí", text: "Reasoned choices derived from verifiable evidence.", textCs: "Odůvodněná rozhodnutí odvozená z ověřitelných důkazů." },
+  { key: "control", title: "Control", titleCs: "Kontrola", text: "Actions that shape systems and ensure accountability.", textCs: "Kroky, které mění systémy a zachovávají odpovědnost." }
+];
 ---
 
 <BaseLayout
   title="Jan Kočí"
   titleCs="Jan Kočí"
-  description="Systems architect turning fragmented infrastructure into systems that can be understood, controlled and safely improved."
-  descriptionCs="Systémový architekt, který mění roztříštěnou infrastrukturu v systémy, jimž lze rozumět, řídit je a bezpečně je zlepšovat."
+  description="Systems architect building evidence-driven infrastructure intelligence that remains governed by humans."
+  descriptionCs="Systémový architekt budující správu infrastruktury založenou na důkazech a řízenou lidmi."
 >
-  <section class="hero section-pad">
-    <p class="kicker"><span data-lang="en">Systems architect for infrastructure that has to survive reality.</span><span data-lang="cs">Systémový architekt pro infrastrukturu, která musí obstát v realitě.</span></p>
-    <h1>
-      <span data-lang="en">I turn fragmented systems into <em>infrastructure you can trust.</em></span>
-      <span data-lang="cs">Měním roztříštěné systémy v <em>infrastrukturu, na kterou se můžete spolehnout.</em></span>
-    </h1>
-    <p class="hero-copy">
-      <span data-lang="en">Linux, telephony, enterprise operations and AI-assisted automation — joined by evidence, explicit decisions and controlled change.</span>
-      <span data-lang="cs">Propojuji Linux, telefonii, podnikový provoz a automatizaci s podporou AI pomocí důkazů, jasných rozhodnutí a řízených změn.</span>
-    </p>
-    <div class="hero-actions">
-      <a class="button primary" href="/work/"><span data-lang="en">View selected work</span><span data-lang="cs">Prohlédnout projekty</span></a>
-      <a class="button secondary" href="/contact/"><span data-lang="en">Discuss a problem</span><span data-lang="cs">Probrat problém</span></a>
+  <section class="cyber-home section-pad" aria-labelledby="cyber-home-title">
+    <div class="cyber-home-copy">
+      <p class="section-label"><span data-lang="en">Flagship project · CyberCore</span><span data-lang="cs">Vlajkový projekt · CyberCore</span></p>
+      <h1 id="cyber-home-title">
+        <span data-lang="en">Infrastructure intelligence,<br />governed by humans<span class="green-stop">.</span></span>
+        <span data-lang="cs">Inteligentní správa infrastruktury,<br />řízená lidmi<span class="green-stop">.</span></span>
+      </h1>
+      <p class="cyber-home-intro">
+        <span data-lang="en">CyberCore is an open architecture and reference implementation for evidence-driven infrastructure intelligence. Foundation v0.1 and the checkpoint runtime are delivered; the active milestone is a controlled post-merge state transition.</span>
+        <span data-lang="cs">CyberCore je otevřená architektura a referenční implementace pro správu infrastruktury založenou na důkazech. Foundation v0.1 i checkpoint runtime jsou hotové; aktuálním milníkem je řízený přechod stavu po sloučení změn.</span>
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="/work/cybercore/"><span data-lang="en">Explore the architecture</span><span data-lang="cs">Prozkoumat architekturu</span> <span aria-hidden="true">↗</span></a>
+        <a class="button secondary" href="https://github.com/cyberDJs/CyberCore"><span data-lang="en">Open repository</span><span data-lang="cs">Otevřít repozitář</span> <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="cyber-now"><i aria-hidden="true"></i><strong><span data-lang="en">Now</span><span data-lang="cs">Nyní</span></strong><span>·</span><span><span data-lang="en">July 2026</span><span data-lang="cs">červenec 2026</span></span></p>
     </div>
-    <div class="hero-grid" aria-label="Professional summary" data-aria-en="Professional summary" data-aria-cs="Profesní přehled">
-      <div><strong>18+</strong><span><span data-lang="en">years in systems engineering</span><span data-lang="cs">let v systémovém inženýrství</span></span></div>
-      <div><strong>3</strong><span><span data-lang="en">sites joined by one telephony platform</span><span data-lang="cs">lokality propojené jednou telefonní platformou</span></span></div>
-      <div><strong>45</strong><span><span data-lang="en">call-centre users supported</span><span data-lang="cs">podporovaných uživatelů call centra</span></span></div>
-      <div><strong>01</strong><span><span data-lang="en">public architecture built from evidence</span><span data-lang="cs">veřejná architektura založená na důkazech</span></span></div>
+
+    <div class="cyber-flow" aria-label="CyberCore flow: Reality, Evidence, Decision, Control" data-aria-en="CyberCore flow: Reality, Evidence, Decision, Control" data-aria-cs="Tok CyberCore: Realita, Důkazy, Rozhodnutí, Kontrola">
+      <div class="cyber-flow-cards">
+        {stages.map((stage, index) => (
+          <>
+            <article class={`flow-card flow-${stage.key}`}>
+              <div class="flow-icon" aria-hidden="true">
+                {stage.key === "reality" && <span class="reality-icon"><b></b>{Array.from({ length: 8 }).map(() => <i></i>)}</span>}
+                {stage.key === "evidence" && <span class="evidence-icon">{Array.from({ length: 9 }).map(() => <i></i>)}</span>}
+                {stage.key === "decision" && <span class="decision-icon"><i></i></span>}
+                {stage.key === "control" && <span class="control-icon"><i></i><b></b></span>}
+              </div>
+              <h2><span data-lang="en">{stage.title}</span><span data-lang="cs">{stage.titleCs}</span></h2>
+              <p><span data-lang="en">{stage.text}</span><span data-lang="cs">{stage.textCs}</span></p>
+            </article>
+            {index < stages.length - 1 && <span class="flow-arrow" aria-hidden="true">→</span>}
+          </>
+        ))}
+      </div>
+      <div class="flow-pipeline" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="flow-signature"><strong>CYBERCORE</strong><span><span data-lang="en">Open architecture for infrastructure intelligence</span><span data-lang="cs">Otevřená architektura pro inteligentní správu infrastruktury</span></span></div>
     </div>
   </section>
 
+  <section class="about-work section-pad" aria-labelledby="about-work-title">
+    <div><p class="section-label"><span data-lang="en">About the work</span><span data-lang="cs">O projektu</span></p><h2 id="about-work-title"><span data-lang="en">Building a controlled future.</span><span data-lang="cs">Budování kontrolované budoucnosti.</span></h2></div>
+    <p><span data-lang="en">I work at the intersection of systems engineering, data integrity and decision theory. CyberCore is my approach to infrastructure intelligence that is open, verifiable and safe by design.</span><span data-lang="cs">Pracuji na průsečíku systémového inženýrství, integrity dat a teorie rozhodování. CyberCore je můj přístup k inteligentní správě infrastruktury, která je otevřená, ověřitelná a bezpečná už ze svého návrhu.</span></p>
+    <div class="about-work-visual" aria-hidden="true"><span></span><span></span><span></span></div>
+  </section>
+
   <section class="recruiter-layer section-pad" aria-labelledby="recruiter-title">
-    <div>
-      <p class="section-label"><span data-lang="en">For recruiters</span><span data-lang="cs">Pro HR</span></p>
-      <h2 id="recruiter-title"><span data-lang="en">The human-readable version.</span><span data-lang="cs">Přehledně a bez lovení informací.</span></h2>
-      <p class="recruiter-intro"><span data-lang="en">I am looking for senior infrastructure, systems architecture, DevOps or AI integration work where ownership and practical judgement matter.</span><span data-lang="cs">Hledám seniorní roli v infrastruktuře, systémové architektuře, DevOps nebo AI integracích, kde záleží na odpovědnosti a praktickém úsudku.</span></p>
-    </div>
+    <div><p class="section-label"><span data-lang="en">For recruiters</span><span data-lang="cs">Pro HR</span></p><h2 id="recruiter-title"><span data-lang="en">The human-readable version.</span><span data-lang="cs">Přehledně a bez lovení informací.</span></h2><p class="recruiter-intro"><span data-lang="en">I am looking for senior infrastructure, systems architecture, DevOps or AI integration work where ownership and practical judgement matter.</span><span data-lang="cs">Hledám seniorní roli v infrastruktuře, systémové architektuře, DevOps nebo AI integracích, kde záleží na odpovědnosti a praktickém úsudku.</span></p></div>
     <dl class="recruiter-facts">
       <div><dt><span data-lang="en">Base</span><span data-lang="cs">Lokalita</span></dt><dd><span data-lang="en">Prague · remote / hybrid</span><span data-lang="cs">Praha · vzdáleně / hybridně</span></dd></div>
       <div><dt><span data-lang="en">Availability</span><span data-lang="cs">Nástup</span></dt><dd><span data-lang="en">By agreement</span><span data-lang="cs">Dohodou</span></dd></div>
@@ -57,79 +86,18 @@ const featuredProjects = featured.map((entry) => {
   </section>
 
   <section class="positioning section-pad" aria-labelledby="positioning-title">
-    <div>
-      <p class="section-label"><span data-lang="en">What I solve</span><span data-lang="cs">Co řeším</span></p>
-      <h2 id="positioning-title"><span data-lang="en">Complexity is manageable once it becomes visible.</span><span data-lang="cs">Složitost lze řídit, jakmile se stane viditelnou.</span></h2>
-    </div>
+    <div><p class="section-label"><span data-lang="en">What I solve</span><span data-lang="cs">Co řeším</span></p><h2 id="positioning-title"><span data-lang="en">Complexity is manageable once it becomes visible.</span><span data-lang="cs">Složitost lze řídit, jakmile se stane viditelnou.</span></h2></div>
     <div class="problem-list">
-      <article>
-        <span>01</span>
-        <h3><span data-lang="en">Stabilize unreliable systems</span><span data-lang="cs">Stabilizovat nespolehlivé systémy</span></h3>
-        <p><span data-lang="en">Recover ownership, isolate failure modes and create a safe path from firefighting to controlled operations.</span><span data-lang="cs">Obnovit odpovědnost, izolovat způsoby selhání a vytvořit bezpečnou cestu od hašení problémů k řízenému provozu.</span></p>
-      </article>
-      <article>
-        <span>02</span>
-        <h3><span data-lang="en">Connect fragmented infrastructure</span><span data-lang="cs">Propojit roztříštěnou infrastrukturu</span></h3>
-        <p><span data-lang="en">Map dependencies across Linux, networks, telephony, cloud services and the people who actually run them.</span><span data-lang="cs">Zmapovat závislosti mezi Linuxem, sítěmi, telefonií, cloudovými službami a lidmi, kteří je skutečně provozují.</span></p>
-      </article>
-      <article>
-        <span>03</span>
-        <h3><span data-lang="en">Automate without losing control</span><span data-lang="cs">Automatizovat bez ztráty kontroly</span></h3>
-        <p><span data-lang="en">Use evidence, verification and human approval to make automation useful instead of merely enthusiastic.</span><span data-lang="cs">Využít důkazy, ověřování a lidské schválení, aby automatizace skutečně pomáhala a nejednala bezhlavě.</span></p>
-      </article>
+      <article><span>01</span><h3><span data-lang="en">Stabilize unreliable systems</span><span data-lang="cs">Stabilizovat nespolehlivé systémy</span></h3><p><span data-lang="en">Recover ownership, isolate failure modes and create a safe path from firefighting to controlled operations.</span><span data-lang="cs">Obnovit odpovědnost, izolovat způsoby selhání a vytvořit bezpečnou cestu od hašení problémů k řízenému provozu.</span></p></article>
+      <article><span>02</span><h3><span data-lang="en">Connect fragmented infrastructure</span><span data-lang="cs">Propojit roztříštěnou infrastrukturu</span></h3><p><span data-lang="en">Map dependencies across Linux, networks, telephony, cloud services and the people who actually run them.</span><span data-lang="cs">Zmapovat závislosti mezi Linuxem, sítěmi, telefonií, cloudovými službami a lidmi, kteří je skutečně provozují.</span></p></article>
+      <article><span>03</span><h3><span data-lang="en">Automate without losing control</span><span data-lang="cs">Automatizovat bez ztráty kontroly</span></h3><p><span data-lang="en">Use evidence, verification and human approval to make automation useful instead of merely enthusiastic.</span><span data-lang="cs">Využít důkazy, ověřování a lidské schválení, aby automatizace skutečně pomáhala a nejednala bezhlavě.</span></p></article>
     </div>
   </section>
 
   <section class="selected-work section-pad" aria-labelledby="work-title">
-    <div class="section-heading">
-      <div>
-        <p class="section-label"><span data-lang="en">Selected work</span><span data-lang="cs">Vybrané projekty</span></p>
-        <h2 id="work-title"><span data-lang="en">Proof before promises.</span><span data-lang="cs">Důkazy před sliby.</span></h2>
-      </div>
-      <a class="text-link" href="/work/"><span data-lang="en">See all work</span><span data-lang="cs">Zobrazit všechny projekty</span> <span aria-hidden="true">→</span></a>
-    </div>
-    <div class="project-list">
-      {featuredProjects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} />)}
-    </div>
+    <div class="section-heading"><div><p class="section-label"><span data-lang="en">Selected work</span><span data-lang="cs">Vybrané projekty</span></p><h2 id="work-title"><span data-lang="en">Proof before promises.</span><span data-lang="cs">Důkazy před sliby.</span></h2></div><a class="text-link" href="/work/"><span data-lang="en">See all work</span><span data-lang="cs">Zobrazit všechny projekty</span> <span aria-hidden="true">→</span></a></div>
+    <div class="project-list">{featuredProjects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} />)}</div>
   </section>
 
-  <section class="cybercore-feature section-pad" aria-labelledby="cybercore-title">
-    <div class="cybercore-mark" aria-hidden="true">
-      <span><span data-lang="en">Reality</span><span data-lang="cs">Realita</span></span><i></i>
-      <span><span data-lang="en">Evidence</span><span data-lang="cs">Důkazy</span></span><i></i>
-      <span><span data-lang="en">Decision</span><span data-lang="cs">Rozhodnutí</span></span><i></i>
-      <span><span data-lang="en">Control</span><span data-lang="cs">Kontrola</span></span>
-    </div>
-    <div>
-      <p class="section-label"><span data-lang="en">Flagship project · CyberCore</span><span data-lang="cs">Vlajkový projekt · CyberCore</span></p>
-      <h2 id="cybercore-title"><span data-lang="en">Infrastructure intelligence, governed by humans.</span><span data-lang="cs">Inteligentní správa infrastruktury pod lidskou kontrolou.</span></h2>
-      <p>
-        <span data-lang="en">CyberCore is an open architecture and reference implementation for evidence-driven infrastructure intelligence. Foundation v0.1 and the checkpoint runtime are delivered; the active milestone is a controlled post-merge state transition.</span>
-        <span data-lang="cs">CyberCore je otevřená architektura a referenční implementace pro správu infrastruktury založenou na důkazech. Foundation v0.1 i checkpoint runtime jsou hotové; aktuálním milníkem je řízený přechod stavu po sloučení změn.</span>
-      </p>
-      <div class="feature-actions">
-        <a class="button primary" href="/work/cybercore/"><span data-lang="en">Explore the architecture</span><span data-lang="cs">Prozkoumat architekturu</span></a>
-        <a class="text-link" href="https://github.com/cyberDJs/CyberCore"><span data-lang="en">Open repository</span><span data-lang="cs">Otevřít repozitář</span> ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="current-focus section-pad">
-    <p class="section-label"><span data-lang="en">Now · July 2026</span><span data-lang="cs">Nyní · červenec 2026</span></p>
-    <div>
-      <h2><span data-lang="en">Building a controlled post-merge state transition.</span><span data-lang="cs">Budování řízeného přechodu po sloučení.</span></h2>
-      <p>
-        <span data-lang="en">The current CyberCore work verifies that a pull request was merged into main, closes the completed work block, records its outcome and activates exactly one successor artifact.</span>
-        <span data-lang="cs">Aktuální etapa ověřuje, že pull request byl skutečně sloučen do main, bezpečně uzavírá dokončený pracovní blok, zaznamenává jeho výsledek a aktivuje právě jeden navazující artefakt.</span>
-      </p>
-    </div>
-  </section>
-
-  <section class="contact-band section-pad">
-    <div>
-      <p class="section-label"><span data-lang="en">Available for the right problem</span><span data-lang="cs">Připraven řešit správný problém</span></p>
-      <h2><span data-lang="en">Bring the system nobody fully understands.</span><span data-lang="cs">Přineste systém, kterému nikdo úplně nerozumí.</span></h2>
-    </div>
-    <a class="button primary" href="mailto:jan@jankoci.cz">jan@jankoci.cz</a>
-  </section>
+  <section class="contact-band section-pad"><div><p class="section-label"><span data-lang="en">Available for the right problem</span><span data-lang="cs">Připraven řešit správný problém</span></p><h2><span data-lang="en">Bring the system nobody fully understands.</span><span data-lang="cs">Přineste systém, kterému nikdo úplně nerozumí.</span></h2></div><a class="button primary" href="mailto:jan@jankoci.cz">jan@jankoci.cz</a></section>
 </BaseLayout>

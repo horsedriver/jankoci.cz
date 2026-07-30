@@ -71,8 +71,10 @@ for (const page of pagePaths) {
 
 const homeEn = await readBuiltPage("");
 const homeCs = await readBuiltPage("cs");
-requireText(homeEn, "I turn fragmented systems", "/");
-requireText(homeCs, "Měním roztříštěné systémy", "/cs/");
+requireText(homeEn, "Infrastructure intelligence", "/");
+requireText(homeEn, "governed by humans", "/");
+requireText(homeCs, "Inteligentní správa infrastruktury", "/cs/");
+requireText(homeCs, "řízená lidmi", "/cs/");
 requireText(homeEn, 'href="/cv/" data-cv-open', "/");
 
 const contactCs = await readBuiltPage(join("cs", "contact"));
