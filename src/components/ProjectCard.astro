@@ -6,9 +6,10 @@ interface Props {
   entry: CollectionEntry<"work">;
   entryCs: CollectionEntry<"workCs">;
   index?: number;
+  headingLevel?: 2 | 3;
 }
 
-const { entry, entryCs, index = 0 } = Astro.props;
+const { entry, entryCs, index = 0, headingLevel = 3 } = Astro.props;
 const { data } = entry;
 const dataCs = entryCs.data;
 ---
@@ -20,11 +21,19 @@ const dataCs = entryCs.data;
       <span><span data-lang="en">{data.eyebrow}</span><span data-lang="cs">{dataCs.eyebrow}</span></span>
       <StatusPill status={data.status} statusCs={dataCs.status} />
     </div>
-    <h3>
-      <a href={`/work/${entry.id}/`}>
-        <span data-lang="en">{data.title}</span><span data-lang="cs">{dataCs.title}</span>
-      </a>
-    </h3>
+    {headingLevel === 2 ? (
+      <h2>
+        <a href={`/work/${entry.id}/`}>
+          <span data-lang="en">{data.title}</span><span data-lang="cs">{dataCs.title}</span>
+        </a>
+      </h2>
+    ) : (
+      <h3>
+        <a href={`/work/${entry.id}/`}>
+          <span data-lang="en">{data.title}</span><span data-lang="cs">{dataCs.title}</span>
+        </a>
+      </h3>
+    )}
     <p><span data-lang="en">{data.summary}</span><span data-lang="cs">{dataCs.summary}</span></p>
     <ul class="outcome-list" aria-label="Vybrané výsledky / Selected outcomes">
       {data.outcomes.slice(0, 2).map((outcome, index) => (
