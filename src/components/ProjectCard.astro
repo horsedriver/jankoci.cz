@@ -22,13 +22,13 @@ const dataCs = entryCs.data;
       <StatusPill status={data.status} statusCs={dataCs.status} />
     </div>
     {headingLevel === 2 ? (
-      <h2>
+      <h2 class="project-title">
         <a href={`/work/${entry.id}/`}>
           <span data-lang="en">{data.title}</span><span data-lang="cs">{dataCs.title}</span>
         </a>
       </h2>
     ) : (
-      <h3>
+      <h3 class="project-title">
         <a href={`/work/${entry.id}/`}>
           <span data-lang="en">{data.title}</span><span data-lang="cs">{dataCs.title}</span>
         </a>
@@ -45,3 +45,13 @@ const dataCs = entryCs.data;
     </a>
   </div>
 </article>
+
+<style>
+  .project-title {
+    margin: 1rem 0 .8rem;
+    font-size: clamp(1.7rem, 4vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -.04em;
+  }
+  .project-title a:hover { color: var(--green); }
+</style>
