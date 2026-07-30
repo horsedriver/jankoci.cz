@@ -30,6 +30,6 @@ const projects = entries.map((entry) => {
     </p>
   </header>
   <section class="project-list page-projects section-pad" aria-label="Případové studie / Case studies">
-    {projects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} />)}
+    {projects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} headingLevel={2} />)}
   </section>
 </BaseLayout>
