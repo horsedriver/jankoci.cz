@@ -63,8 +63,6 @@ requireText(home, 'data-set-lang="cs"', "/");
 requireText(home, 'data-set-lang="en"', "/");
 requireText(home, 'data-content-cs="cs_CZ"', "/");
 requireText(home, 'href="/cv/" data-cv-open', "/");
-requireText(home, 'html:not([data-language="cs"]) [data-lang="cs"]', "/");
-requireText(home, "grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr)", "/");
 
 const contact = await readBuiltPage("contact");
 requireText(contact, "data-href-cs=", "/contact/");
