@@ -4,44 +4,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="About"
+  titleCs="O mně"
   description="Jan Kočí is a systems architect working across Linux, telephony, infrastructure, operations and AI-assisted automation."
+  descriptionCs="Jan Kočí je systémový architekt zaměřený na Linux, telefonii, infrastrukturu, provoz a automatizaci s podporou AI."
 >
   <header class="page-intro section-pad">
-    <p class="section-label">About</p>
-    <h1>I make complicated systems <span>legible and governable.</span></h1>
+    <p class="section-label"><span data-lang="en">About</span><span data-lang="cs">O mně</span></p>
+    <h1>
+      <span data-lang="en">I make complicated systems <span>legible and governable.</span></span>
+      <span data-lang="cs">Dělám složité systémy <span>srozumitelné a řiditelné.</span></span>
+    </h1>
     <p>
-      I am a Prague-based systems architect with more than eighteen years across Linux,
-      telephony, enterprise support, product development and technical leadership.
+      <span data-lang="en">I am a Prague-based systems architect with more than eighteen years across Linux, telephony, enterprise support, product development and technical leadership.</span>
+      <span data-lang="cs">Jsem systémový architekt z Prahy s více než osmnácti lety zkušeností v Linuxu, telefonii, podnikové podpoře, vývoji produktů a technickém vedení.</span>
     </p>
   </header>
   <section class="about-grid section-pad">
     <div class="prose">
-      <h2>How I work</h2>
+      <h2><span data-lang="en">How I work</span><span data-lang="cs">Jak pracuji</span></h2>
       <p>
-        I start with operational reality: what exists, who depends on it, what can fail and
-        which claims are actually supported by evidence. Architecture follows from that map.
+        <span data-lang="en">I start with operational reality: what exists, who depends on it, what can fail and which claims are actually supported by evidence. Architecture follows from that map.</span>
+        <span data-lang="cs">Začínám provozní realitou: co existuje, kdo je na tom závislý, co může selhat a která tvrzení jsou skutečně podložená důkazy. Z této mapy pak vychází architektura.</span>
       </p>
       <p>
-        My work combines hands-on troubleshooting with system design. I am comfortable moving
-        from a broken call flow or Linux service to the governance model that prevents the same
-        class of failure from returning.
+        <span data-lang="en">My work combines hands-on troubleshooting with system design. I am comfortable moving from a broken call flow or Linux service to the governance model that prevents the same class of failure from returning.</span>
+        <span data-lang="cs">Spojuji praktické řešení problémů s návrhem systémů. Dokážu přejít od nefunkčního směrování hovoru nebo linuxové služby k modelu řízení, který zabrání návratu stejného typu selhání.</span>
       </p>
-      <h2>What I value</h2>
+      <h2><span data-lang="en">What I value</span><span data-lang="cs">Čeho si cením</span></h2>
       <p>
-        Clear ownership, reversible change, useful documentation, honest status reporting and
-        automation that remains subordinate to human intent.
+        <span data-lang="en">Clear ownership, reversible change, useful documentation, honest status reporting and automation that remains subordinate to human intent.</span>
+        <span data-lang="cs">Jasné odpovědnosti, vratných změn, užitečné dokumentace, poctivého vykazování stavu a automatizace, která zůstává podřízená lidskému záměru.</span>
       </p>
     </div>
     <aside class="principle-panel">
-      <p class="section-label">Operating principles</p>
+      <p class="section-label"><span data-lang="en">Operating principles</span><span data-lang="cs">Pracovní principy</span></p>
       <ol>
-        <li>Reality before assumptions.</li>
-        <li>Evidence before confidence theatre.</li>
-        <li>Simple systems before fashionable complexity.</li>
-        <li>Human approval before meaningful mutation.</li>
-        <li>Verification before celebration.</li>
+        <li><span data-lang="en">Reality before assumptions.</span><span data-lang="cs">Realita před domněnkami.</span></li>
+        <li><span data-lang="en">Evidence before confidence theatre.</span><span data-lang="cs">Důkazy před předstíranou jistotou.</span></li>
+        <li><span data-lang="en">Simple systems before fashionable complexity.</span><span data-lang="cs">Jednoduché systémy před módní složitostí.</span></li>
+        <li><span data-lang="en">Human approval before meaningful mutation.</span><span data-lang="cs">Lidské schválení před významnou změnou.</span></li>
+        <li><span data-lang="en">Verification before celebration.</span><span data-lang="cs">Ověření před oslavou.</span></li>
       </ol>
-      <a class="button primary" href="/cv/">Open the full CV</a>
+      <a class="button primary" href="/cv/"><span data-lang="en">Open the full CV</span><span data-lang="cs">Otevřít celé CV</span></a>
     </aside>
   </section>
 </BaseLayout>

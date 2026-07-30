@@ -4,19 +4,36 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="Lab"
+  titleCs="Laboratoř"
   description="Active experiments and prototypes in networking, infrastructure automation and AI-assisted operations."
+  descriptionCs="Aktivní experimenty a prototypy v oblasti sítí, automatizace infrastruktury a provozu s podporou AI."
 >
   <header class="page-intro section-pad">
-    <p class="section-label">Lab</p>
-    <h1>Small systems for testing <span>large ideas.</span></h1>
+    <p class="section-label"><span data-lang="en">Lab</span><span data-lang="cs">Laboratoř</span></p>
+    <h1>
+      <span data-lang="en">Small systems for testing <span>large ideas.</span></span>
+      <span data-lang="cs">Malé systémy pro ověřování <span>velkých myšlenek.</span></span>
+    </h1>
     <p>
-      Work-in-progress belongs here: useful prototypes, infrastructure experiments and open
-      questions. The lab is intentionally honest about maturity.
+      <span data-lang="en">Work-in-progress belongs here: useful prototypes, infrastructure experiments and open questions. The lab is intentionally honest about maturity.</span>
+      <span data-lang="cs">Sem patří rozpracované věci: užitečné prototypy, experimenty s infrastrukturou a otevřené otázky. Laboratoř záměrně otevřeně uvádí úroveň vyspělosti.</span>
     </p>
   </header>
   <section class="lab-grid section-pad">
-    <article><span>Active</span><h2>Project Checkpoint Runtime</h2><p>Deterministic collection of repository state and verified test evidence for CyberCore project memory.</p></article>
-    <article><span>Prototype</span><h2>OpenWrt field tooling</h2><p>Repeatable diagnostics for constrained networks, multi-uplink routing and pragmatic service recovery.</p></article>
-    <article><span>Prototype</span><h2>AI-assisted operations</h2><p>Provider-independent workflows that help inspect and explain infrastructure without silently crossing approval gates.</p></article>
+    <article>
+      <span><span data-lang="en">Active</span><span data-lang="cs">Aktivní</span></span>
+      <h2>Project Checkpoint Runtime</h2>
+      <p><span data-lang="en">Deterministic collection of repository state and verified test evidence for CyberCore project memory.</span><span data-lang="cs">Deterministický sběr stavu repozitáře a ověřených výsledků testů pro projektovou paměť CyberCore.</span></p>
+    </article>
+    <article>
+      <span><span data-lang="en">Prototype</span><span data-lang="cs">Prototyp</span></span>
+      <h2><span data-lang="en">OpenWrt field tooling</span><span data-lang="cs">Terénní nástroje pro OpenWrt</span></h2>
+      <p><span data-lang="en">Repeatable diagnostics for constrained networks, multi-uplink routing and pragmatic service recovery.</span><span data-lang="cs">Opakovatelná diagnostika omezených sítí, směrování s více uplinky a pragmatická obnova služeb.</span></p>
+    </article>
+    <article>
+      <span><span data-lang="en">Prototype</span><span data-lang="cs">Prototyp</span></span>
+      <h2><span data-lang="en">AI-assisted operations</span><span data-lang="cs">Provoz s podporou AI</span></h2>
+      <p><span data-lang="en">Provider-independent workflows that help inspect and explain infrastructure without silently crossing approval gates.</span><span data-lang="cs">Postupy nezávislé na poskytovateli, které pomáhají zkoumat a vysvětlovat infrastrukturu, aniž by tiše obcházely schvalovací brány.</span></p>
+    </article>
   </section>
 </BaseLayout>

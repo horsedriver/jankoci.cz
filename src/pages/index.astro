@@ -5,69 +5,77 @@ import ProjectCard from "../components/ProjectCard.astro";
 
 const featured = (await getCollection("work", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order);
+const localizedEntries = new Map((await getCollection("workCs")).map((entry) => [entry.id, entry]));
+const featuredProjects = featured.map((entry) => {
+  const entryCs = localizedEntries.get(entry.id);
+  if (!entryCs) throw new Error(`Missing Czech case study: ${entry.id}`);
+  return { entry, entryCs };
+});
 ---
 
 <BaseLayout
   title="Jan Kočí"
+  titleCs="Jan Kočí"
   description="Systems architect turning fragmented infrastructure into systems that can be understood, controlled and safely improved."
+  descriptionCs="Systémový architekt, který mění roztříštěnou infrastrukturu v systémy, jimž lze rozumět, řídit je a bezpečně je zlepšovat."
 >
   <section class="hero section-pad">
-    <p class="kicker"><span data-lang="en">Systems architect for infrastructure that has to survive reality.</span><span data-lang="cs">Systémový architekt pro infrastrukturu, která musí přežít realitu.</span></p>
+    <p class="kicker"><span data-lang="en">Systems architect for infrastructure that has to survive reality.</span><span data-lang="cs">Systémový architekt pro infrastrukturu, která musí obstát v realitě.</span></p>
     <h1>
       <span data-lang="en">I turn fragmented systems into <em>infrastructure you can trust.</em></span>
-      <span data-lang="cs">Měním roztříštěné systémy v <em>infrastrukturu, které můžete věřit.</em></span>
+      <span data-lang="cs">Měním roztříštěné systémy v <em>infrastrukturu, na kterou se můžete spolehnout.</em></span>
     </h1>
     <p class="hero-copy">
       <span data-lang="en">Linux, telephony, enterprise operations and AI-assisted automation — joined by evidence, explicit decisions and controlled change.</span>
-      <span data-lang="cs">Linux, telefonie, podnikový provoz a automatizace s AI — propojené důkazy, jasnými rozhodnutími a řízenou změnou.</span>
+      <span data-lang="cs">Propojuji Linux, telefonii, podnikový provoz a automatizaci s podporou AI pomocí důkazů, jasných rozhodnutí a řízených změn.</span>
     </p>
     <div class="hero-actions">
       <a class="button primary" href="/work/"><span data-lang="en">View selected work</span><span data-lang="cs">Prohlédnout projekty</span></a>
       <a class="button secondary" href="/contact/"><span data-lang="en">Discuss a problem</span><span data-lang="cs">Probrat problém</span></a>
     </div>
-    <div class="hero-grid" aria-label="Professional summary">
-      <div><strong>18+</strong><span>years in systems engineering</span></div>
-      <div><strong>3</strong><span>sites joined by one telephony platform</span></div>
-      <div><strong>45</strong><span>call-centre users supported</span></div>
-      <div><strong>01</strong><span>public architecture built from evidence</span></div>
+    <div class="hero-grid" aria-label="Professional summary" data-aria-en="Professional summary" data-aria-cs="Profesní přehled">
+      <div><strong>18+</strong><span><span data-lang="en">years in systems engineering</span><span data-lang="cs">let v systémovém inženýrství</span></span></div>
+      <div><strong>3</strong><span><span data-lang="en">sites joined by one telephony platform</span><span data-lang="cs">lokality propojené jednou telefonní platformou</span></span></div>
+      <div><strong>45</strong><span><span data-lang="en">call-centre users supported</span><span data-lang="cs">podporovaných uživatelů call centra</span></span></div>
+      <div><strong>01</strong><span><span data-lang="en">public architecture built from evidence</span><span data-lang="cs">veřejná architektura založená na důkazech</span></span></div>
     </div>
   </section>
 
   <section class="recruiter-layer section-pad" aria-labelledby="recruiter-title">
     <div>
       <p class="section-label"><span data-lang="en">For recruiters</span><span data-lang="cs">Pro HR</span></p>
-      <h2 id="recruiter-title"><span data-lang="en">The human-readable version.</span><span data-lang="cs">Lidsky a bez lovení informací.</span></h2>
+      <h2 id="recruiter-title"><span data-lang="en">The human-readable version.</span><span data-lang="cs">Přehledně a bez lovení informací.</span></h2>
       <p class="recruiter-intro"><span data-lang="en">I am looking for senior infrastructure, systems architecture, DevOps or AI integration work where ownership and practical judgement matter.</span><span data-lang="cs">Hledám seniorní roli v infrastruktuře, systémové architektuře, DevOps nebo AI integracích, kde záleží na odpovědnosti a praktickém úsudku.</span></p>
     </div>
     <dl class="recruiter-facts">
-      <div><dt><span data-lang="en">Base</span><span data-lang="cs">Lokalita</span></dt><dd>Prague · remote / hybrid</dd></div>
+      <div><dt><span data-lang="en">Base</span><span data-lang="cs">Lokalita</span></dt><dd><span data-lang="en">Prague · remote / hybrid</span><span data-lang="cs">Praha · vzdáleně / hybridně</span></dd></div>
       <div><dt><span data-lang="en">Availability</span><span data-lang="cs">Nástup</span></dt><dd><span data-lang="en">By agreement</span><span data-lang="cs">Dohodou</span></dd></div>
-      <div><dt><span data-lang="en">Best fit</span><span data-lang="cs">Nejlepší fit</span></dt><dd>Linux · architecture · automation · AI integration</dd></div>
+      <div><dt><span data-lang="en">Best fit</span><span data-lang="cs">Nejlepší zaměření</span></dt><dd><span data-lang="en">Linux · architecture · automation · AI integration</span><span data-lang="cs">Linux · architektura · automatizace · integrace AI</span></dd></div>
       <div><dt><span data-lang="en">Work style</span><span data-lang="cs">Styl práce</span></dt><dd><span data-lang="en">Evidence, ownership, calm operations</span><span data-lang="cs">Důkazy, odpovědnost, klidný provoz</span></dd></div>
-      <div class="recruiter-actions"><dt>CV</dt><dd><button class="text-link" type="button" data-cv-open><span data-lang="en">Preview CV →</span><span data-lang="cs">Náhled CV →</span></button></dd></div>
+      <div class="recruiter-actions"><dt>CV</dt><dd><a class="text-link" href="/cv/" data-cv-open><span data-lang="en">Preview CV →</span><span data-lang="cs">Náhled CV →</span></a></dd></div>
     </dl>
   </section>
 
   <section class="positioning section-pad" aria-labelledby="positioning-title">
     <div>
-      <p class="section-label">What I solve</p>
-      <h2 id="positioning-title">Complexity is manageable once it becomes visible.</h2>
+      <p class="section-label"><span data-lang="en">What I solve</span><span data-lang="cs">Co řeším</span></p>
+      <h2 id="positioning-title"><span data-lang="en">Complexity is manageable once it becomes visible.</span><span data-lang="cs">Složitost lze řídit, jakmile se stane viditelnou.</span></h2>
     </div>
     <div class="problem-list">
       <article>
         <span>01</span>
-        <h3>Stabilize unreliable systems</h3>
-        <p>Recover ownership, isolate failure modes and create a safe path from firefighting to controlled operations.</p>
+        <h3><span data-lang="en">Stabilize unreliable systems</span><span data-lang="cs">Stabilizovat nespolehlivé systémy</span></h3>
+        <p><span data-lang="en">Recover ownership, isolate failure modes and create a safe path from firefighting to controlled operations.</span><span data-lang="cs">Obnovit odpovědnost, izolovat způsoby selhání a vytvořit bezpečnou cestu od hašení problémů k řízenému provozu.</span></p>
       </article>
       <article>
         <span>02</span>
-        <h3>Connect fragmented infrastructure</h3>
-        <p>Map dependencies across Linux, networks, telephony, cloud services and the people who actually run them.</p>
+        <h3><span data-lang="en">Connect fragmented infrastructure</span><span data-lang="cs">Propojit roztříštěnou infrastrukturu</span></h3>
+        <p><span data-lang="en">Map dependencies across Linux, networks, telephony, cloud services and the people who actually run them.</span><span data-lang="cs">Zmapovat závislosti mezi Linuxem, sítěmi, telefonií, cloudovými službami a lidmi, kteří je skutečně provozují.</span></p>
       </article>
       <article>
         <span>03</span>
-        <h3>Automate without losing control</h3>
-        <p>Use evidence, verification and human approval to make automation useful instead of merely enthusiastic.</p>
+        <h3><span data-lang="en">Automate without losing control</span><span data-lang="cs">Automatizovat bez ztráty kontroly</span></h3>
+        <p><span data-lang="en">Use evidence, verification and human approval to make automation useful instead of merely enthusiastic.</span><span data-lang="cs">Využít důkazy, ověřování a lidské schválení, aby automatizace skutečně pomáhala a nejednala bezhlavě.</span></p>
       </article>
     </div>
   </section>
@@ -75,50 +83,52 @@ const featured = (await getCollection("work", ({ data }) => data.featured))
   <section class="selected-work section-pad" aria-labelledby="work-title">
     <div class="section-heading">
       <div>
-        <p class="section-label">Selected work</p>
-        <h2 id="work-title">Proof before promises.</h2>
+        <p class="section-label"><span data-lang="en">Selected work</span><span data-lang="cs">Vybrané projekty</span></p>
+        <h2 id="work-title"><span data-lang="en">Proof before promises.</span><span data-lang="cs">Důkazy před sliby.</span></h2>
       </div>
-      <a class="text-link" href="/work/">See all work <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="/work/"><span data-lang="en">See all work</span><span data-lang="cs">Zobrazit všechny projekty</span> <span aria-hidden="true">→</span></a>
     </div>
     <div class="project-list">
-      {featured.map((entry, index) => <ProjectCard entry={entry} index={index} />)}
+      {featuredProjects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} />)}
     </div>
   </section>
 
   <section class="cybercore-feature section-pad" aria-labelledby="cybercore-title">
     <div class="cybercore-mark" aria-hidden="true">
-      <span>Reality</span><i></i><span>Evidence</span><i></i><span>Decision</span><i></i><span>Control</span>
+      <span><span data-lang="en">Reality</span><span data-lang="cs">Realita</span></span><i></i>
+      <span><span data-lang="en">Evidence</span><span data-lang="cs">Důkazy</span></span><i></i>
+      <span><span data-lang="en">Decision</span><span data-lang="cs">Rozhodnutí</span></span><i></i>
+      <span><span data-lang="en">Control</span><span data-lang="cs">Kontrola</span></span>
     </div>
     <div>
-      <p class="section-label">Flagship project · CyberCore</p>
-      <h2 id="cybercore-title">Infrastructure intelligence, governed by humans.</h2>
+      <p class="section-label"><span data-lang="en">Flagship project · CyberCore</span><span data-lang="cs">Vlajkový projekt · CyberCore</span></p>
+      <h2 id="cybercore-title"><span data-lang="en">Infrastructure intelligence, governed by humans.</span><span data-lang="cs">Inteligentní správa infrastruktury pod lidskou kontrolou.</span></h2>
       <p>
-        CyberCore is an open architecture and reference implementation for evidence-driven
-        infrastructure intelligence. Foundation v0.1 is delivered; the deterministic Project
-        Checkpoint Runtime is the active milestone.
+        <span data-lang="en">CyberCore is an open architecture and reference implementation for evidence-driven infrastructure intelligence. Foundation v0.1 and the checkpoint runtime are delivered; the active milestone is a controlled post-merge state transition.</span>
+        <span data-lang="cs">CyberCore je otevřená architektura a referenční implementace pro správu infrastruktury založenou na důkazech. Foundation v0.1 i checkpoint runtime jsou hotové; aktuálním milníkem je řízený přechod stavu po sloučení změn.</span>
       </p>
       <div class="feature-actions">
-        <a class="button primary" href="/work/cybercore/">Explore the architecture</a>
-        <a class="text-link" href="https://github.com/cyberDJs/CyberCore">Open repository ↗</a>
+        <a class="button primary" href="/work/cybercore/"><span data-lang="en">Explore the architecture</span><span data-lang="cs">Prozkoumat architekturu</span></a>
+        <a class="text-link" href="https://github.com/cyberDJs/CyberCore"><span data-lang="en">Open repository</span><span data-lang="cs">Otevřít repozitář</span> ↗</a>
       </div>
     </div>
   </section>
 
   <section class="current-focus section-pad">
-    <p class="section-label">Now · July 2026</p>
+    <p class="section-label"><span data-lang="en">Now · July 2026</span><span data-lang="cs">Nyní · červenec 2026</span></p>
     <div>
-      <h2>Building deterministic project memory.</h2>
+      <h2><span data-lang="en">Building a controlled post-merge state transition.</span><span data-lang="cs">Budování řízeného přechodu po sloučení.</span></h2>
       <p>
-        The current CyberCore work block turns verified repository state and test evidence into
-        reproducible project checkpoints — preview first, mutation only after approval.
+        <span data-lang="en">The current CyberCore work verifies that a pull request was merged into main, closes the completed work block, records its outcome and activates exactly one successor artifact.</span>
+        <span data-lang="cs">Aktuální etapa ověřuje, že pull request byl skutečně sloučen do main, bezpečně uzavírá dokončený pracovní blok, zaznamenává jeho výsledek a aktivuje právě jeden navazující artefakt.</span>
       </p>
     </div>
   </section>
 
   <section class="contact-band section-pad">
     <div>
-      <p class="section-label">Available for the right problem</p>
-      <h2>Bring the system nobody fully understands.</h2>
+      <p class="section-label"><span data-lang="en">Available for the right problem</span><span data-lang="cs">Připraven řešit správný problém</span></p>
+      <h2><span data-lang="en">Bring the system nobody fully understands.</span><span data-lang="cs">Přineste systém, kterému nikdo úplně nerozumí.</span></h2>
     </div>
     <a class="button primary" href="mailto:jan@jankoci.cz">jan@jankoci.cz</a>
   </section>

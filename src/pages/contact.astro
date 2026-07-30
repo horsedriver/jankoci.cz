@@ -4,24 +4,38 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="Contact"
+  titleCs="Kontakt"
   description="Contact Jan Kočí about systems architecture roles, infrastructure problems or CyberCore collaboration."
+  descriptionCs="Kontaktujte Jana Kočího ohledně rolí v systémové architektuře, problémů s infrastrukturou nebo spolupráce na CyberCore."
 >
   <section class="contact-page section-pad">
-    <p class="section-label">Contact</p>
-    <h1>Let’s make the problem <span>specific enough to solve.</span></h1>
+    <p class="section-label"><span data-lang="en">Contact</span><span data-lang="cs">Kontakt</span></p>
+    <h1>
+      <span data-lang="en">Let’s make the problem <span>specific enough to solve.</span></span>
+      <span data-lang="cs">Pojďme problém popsat <span>tak přesně, aby šel vyřešit.</span></span>
+    </h1>
     <p class="hero-copy">
-      I am open to systems architecture roles, technical leadership, infrastructure consulting
-      and serious collaboration around CyberCore.
+      <span data-lang="en">I am open to systems architecture roles, technical leadership, infrastructure consulting and serious collaboration around CyberCore.</span>
+      <span data-lang="cs">Jsem otevřený rolím v systémové architektuře, technickému vedení, konzultacím infrastruktury a seriózní spolupráci na CyberCore.</span>
     </p>
     <div class="contact-options">
-      <a href="mailto:jan@jankoci.cz?subject=Systems%20architecture%20conversation">
-        <span>Role or infrastructure problem</span><strong>jan@jankoci.cz ↗</strong>
+      <a
+        href="mailto:jan@jankoci.cz?subject=Systems%20architecture%20conversation"
+        data-href-en="mailto:jan@jankoci.cz?subject=Systems%20architecture%20conversation"
+        data-href-cs="mailto:jan@jankoci.cz?subject=Syst%C3%A9mov%C3%A1%20architektura%20%E2%80%93%20konzultace"
+      >
+        <span><span data-lang="en">Role or infrastructure problem</span><span data-lang="cs">Role nebo problém s infrastrukturou</span></span><strong>jan@jankoci.cz ↗</strong>
       </a>
-      <a href="mailto:jan@jankoci.cz?subject=CyberCore%20collaboration">
-        <span>CyberCore partnership</span><strong>Start a conversation ↗</strong>
+      <a
+        href="mailto:jan@jankoci.cz?subject=CyberCore%20collaboration"
+        data-href-en="mailto:jan@jankoci.cz?subject=CyberCore%20collaboration"
+        data-href-cs="mailto:jan@jankoci.cz?subject=Spolupr%C3%A1ce%20na%20CyberCore"
+      >
+        <span><span data-lang="en">CyberCore partnership</span><span data-lang="cs">Partnerství kolem CyberCore</span></span>
+        <strong><span data-lang="en">Start a conversation</span><span data-lang="cs">Napsat zprávu</span> ↗</strong>
       </a>
       <a href="https://www.linkedin.com/in/jankoci">
-        <span>Professional profile</span><strong>LinkedIn ↗</strong>
+        <span><span data-lang="en">Professional profile</span><span data-lang="cs">Profesní profil</span></span><strong>LinkedIn ↗</strong>
       </a>
     </div>
   </section>

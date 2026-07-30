@@ -4,21 +4,32 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 
 const entries = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
+const localizedEntries = new Map((await getCollection("workCs")).map((entry) => [entry.id, entry]));
+const projects = entries.map((entry) => {
+  const entryCs = localizedEntries.get(entry.id);
+  if (!entryCs) throw new Error(`Missing Czech case study: ${entry.id}`);
+  return { entry, entryCs };
+});
 ---
 
 <BaseLayout
   title="Selected work"
+  titleCs="Vybrané projekty"
   description="Case studies in infrastructure architecture, telephony, systems recovery and evidence-driven automation."
+  descriptionCs="Případové studie z architektury infrastruktury, telefonie, obnovy systémů a automatizace řízené důkazy."
 >
   <header class="page-intro section-pad">
-    <p class="section-label">Selected work</p>
-    <h1>Systems are stories.<br /><span>Evidence makes them useful.</span></h1>
+    <p class="section-label"><span data-lang="en">Selected work</span><span data-lang="cs">Vybrané projekty</span></p>
+    <h1>
+      <span data-lang="en">Systems are stories.<br /><span>Evidence makes them useful.</span></span>
+      <span data-lang="cs">Systémy jsou příběhy.<br /><span>Důkazy jim dávají hodnotu.</span></span>
+    </h1>
     <p>
-      Four projects showing how I approach ambiguity, operational risk and controlled change.
-      Claims are labelled by evidence quality and sensitive environments are deliberately anonymized.
+      <span data-lang="en">Four projects showing how I approach ambiguity, operational risk and controlled change. Claims are labelled by evidence quality and sensitive environments are deliberately anonymized.</span>
+      <span data-lang="cs">Čtyři projekty ukazují, jak přistupuji k nejasnostem, provozním rizikům a řízeným změnám. Tvrzení jsou označena podle kvality důkazů a citlivá prostředí jsou záměrně anonymizována.</span>
     </p>
   </header>
-  <section class="project-list page-projects section-pad" aria-label="Case studies">
-    {entries.map((entry, index) => <ProjectCard entry={entry} index={index} />)}
+  <section class="project-list page-projects section-pad" aria-label="Případové studie / Case studies">
+    {projects.map(({ entry, entryCs }, index) => <ProjectCard entry={entry} entryCs={entryCs} index={index} headingLevel={2} />)}
   </section>
 </BaseLayout>
