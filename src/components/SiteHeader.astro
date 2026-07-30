@@ -1,6 +1,8 @@
 ---
 const currentPath = Astro.url.pathname;
-const englishPath = currentPath.startsWith("/cs/") ? currentPath.slice(3) || "/" : currentPath;
+const isNotFound = currentPath === "/404" || currentPath === "/404/";
+const resolvedPath = isNotFound ? "/" : currentPath;
+const englishPath = resolvedPath.startsWith("/cs/") ? resolvedPath.slice(3) || "/" : resolvedPath;
 const czechPath = `/cs${englishPath === "/" ? "/" : englishPath}`;
 const links = [
   { href: "/work/", label: "Work", cs: "Projekty" },
