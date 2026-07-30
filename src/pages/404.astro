@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  titleCs="Stránka nenalezena"
+  description="The requested page does not exist. Return to Jan Kočí's portfolio."
+  descriptionCs="Požadovaná stránka neexistuje. Vraťte se na portfolio Jana Kočího."
+>
+  <section class="contact-page section-pad">
+    <p class="section-label">404</p>
+    <h1>
+      <span data-lang="en">This route does not exist.<br /><span>Return to known infrastructure.</span></span>
+      <span data-lang="cs">Tato cesta neexistuje.<br /><span>Vraťte se do známé infrastruktury.</span></span>
+    </h1>
+    <div class="hero-actions">
+      <a class="button primary" href="/"><span data-lang="en">Return home</span><span data-lang="cs">Zpět na úvod</span></a>
+      <a class="button secondary" href="/work/"><span data-lang="en">View selected work</span><span data-lang="cs">Prohlédnout projekty</span></a>
+    </div>
+  </section>
+</BaseLayout>
