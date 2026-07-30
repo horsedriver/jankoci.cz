@@ -1,5 +1,7 @@
 ---
 const currentPath = Astro.url.pathname;
+const englishPath = currentPath.startsWith("/cs/") ? currentPath.slice(3) || "/" : currentPath;
+const czechPath = `/cs${englishPath === "/" ? "/" : englishPath}`;
 const links = [
   { href: "/work/", label: "Work", cs: "Projekty" },
   { href: "/about/", label: "About", cs: "O mně" },
@@ -16,16 +18,16 @@ const links = [
   <nav aria-label="Primary navigation" data-aria-en="Primary navigation" data-aria-cs="Hlavní navigace">
     {
       links.map(({ href, label, cs }) => (
-        <a href={href} aria-current={currentPath.startsWith(href) ? "page" : undefined}>
+        <a href={href} aria-current={englishPath.startsWith(href) ? "page" : undefined}>
           <span data-lang="en">{label}</span><span data-lang="cs">{cs}</span>
         </a>
       ))
     }
     <a class="nav-button" href="/cv/" data-cv-open>CV</a>
-    <div class="language-switch" role="group" aria-label="Language / Jazyk">
-      <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+    <div class="language-switch" aria-label="Language / Jazyk">
+      <a href={czechPath} data-language-link="cs" hreflang="cs" lang="cs">CZ</a>
       <span aria-hidden="true">/</span>
-      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <a href={englishPath} data-language-link="en" hreflang="en" lang="en" aria-current="page">EN</a>
     </div>
   </nav>
 </header>
