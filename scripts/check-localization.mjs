@@ -72,10 +72,16 @@ for (const page of pagePaths) {
 const homeEn = await readBuiltPage("");
 const homeCs = await readBuiltPage("cs");
 requireText(homeEn, "I stabilize complex infrastructure", "/");
-requireText(homeEn, "operational chaos into controlled systems", "/");
+requireText(homeEn, "turn chaos into controlled operations", "/");
 requireText(homeCs, "Stabilizuji složitou infrastrukturu", "/cs/");
-requireText(homeCs, "provozní chaos v řízené systémy", "/cs/");
+requireText(homeCs, "měním chaos v řízený provoz", "/cs/");
+requireText(homeEn, "Architecture without theatre. Delivery without chaos.", "/");
+requireText(homeCs, "Architektura bez divadla. Realizace bez chaosu.", "/cs/");
+requireText(homeEn, "Infrastructure decisions backed by evidence.", "/");
+requireText(homeCs, "Rozhodování o infrastruktuře podložené důkazy.", "/cs/");
 requireText(homeEn, 'href="/cv/" data-cv-open', "/");
+requireText(homeEn, "https://www.linkedin.com/in/jankoci", "/");
+requireText(homeCs, "https://www.linkedin.com/in/jankoci", "/cs/");
 
 const contactCs = await readBuiltPage(join("cs", "contact"));
 requireText(contactCs, "Syst%C3%A9mov%C3%A1%20architektura", "/cs/contact/");
